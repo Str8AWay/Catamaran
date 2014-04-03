@@ -13,7 +13,7 @@ import java.awt.Image.*;
 
 public class Catamaran extends Applet implements Runnable
 {
-	public static final String CATAMARAN_URL = "http://www.mscs.mu.edu/~fharunan/Games/Catamaran/";	
+	public static final String CATAMARAN_URL = "http://www.mscs.mu.edu/~fharunan/Games/Catamaran/resources/";
 
 	public final int GAMESTART = 1;
 	public final int GAMEPLAY = 2;
@@ -221,7 +221,6 @@ public class Catamaran extends Applet implements Runnable
             AcornBooty acornBooty = acornBootyIterator.next();
             if (catBox.intersects(acornBooty.collisionBox()))
             {
-                crewmembers += 1;
                 acornBootyIterator.remove();
                 break;
             }
