@@ -1,0 +1,7 @@
+*.class
+*~
+*.swp
+*.iml
+.idea/
+out/
+.DS_Store
