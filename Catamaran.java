@@ -25,6 +25,7 @@ public class Catamaran extends Applet implements Runnable
 	CapnFerdinandLongwhiskers ferdie;
 	ArrayList<RoyalNavySeadog> doggies;
 	ArrayList<Booty> booties;
+    ArrayList<AcornBooty> acornBooties;
 	ArrayList<SquirrelBullet> bullets;
 	Image bulletImg;
 	Thread anim;
@@ -56,7 +57,7 @@ public class Catamaran extends Applet implements Runnable
 
 		points = 0; 
 		spaceReleased = false; 
-		crewmembers = 5;
+		crewmembers = 0;
 
 		buffer = createImage(VWIDTH,VHEIGHT);
 		bufgr = buffer.getGraphics();
@@ -81,6 +82,16 @@ public class Catamaran extends Applet implements Runnable
 			bulletImg = getImage(new URL(CATAMARAN_URL + "squirrelBlock.png"));
 		} catch (MalformedURLException e) {}
 
+        Image acornImg = null;
+        try {
+            acornImg = getImage(new URL(CATAMARAN_URL + "acornBlock.png"));
+        } catch (MalformedURLException e) {}
+
+        Image dogBulletImg = null;
+        try {
+            dogBulletImg = getImage(new URL(CATAMARAN_URL + "cannonballBlock.png"));
+        } catch (MalformedURLException e) {}
+
         try {
             bkgnd = getImage(new URL(CATAMARAN_URL + "beach.png"));
         } catch (MalformedURLException e) {}
@@ -88,7 +99,8 @@ public class Catamaran extends Applet implements Runnable
         // Chill while images aren't loaded from the interwebz
         while (capt.getHeight(this) == -1 || dog.getHeight(this) == -1 ||
                 chest.getHeight(this) == -1 || bulletImg.getHeight(this) == -1 ||
-                bkgnd.getHeight(this) == -1);
+                bkgnd.getHeight(this) == -1 || acornImg.getHeight(this) == -1 ||
+                dogBulletImg.getHeight(this) == -1);
 
         // Create sprite objects
         ferdie = new CapnFerdinandLongwhiskers(this, capt, 50, 249);
@@ -102,6 +114,11 @@ public class Catamaran extends Applet implements Runnable
         for (int i = 0; i < level*10; i++)
         {
             booties.add(new Booty(this, chest, rm.nextInt(MAXX - 64), rm.nextInt(VHEIGHT-MINY-64)+MINY));
+        }
+        acornBooties = new ArrayList<AcornBooty>();
+        for (int i = 0; i < level*10; i++)
+        {
+            acornBooties.add(new AcornBooty(this, acornImg, rm.nextInt(MAXX - 64), rm.nextInt(VHEIGHT-MINY-64)+MINY));
         }
 		bullets = new ArrayList<SquirrelBullet>();
 	}
@@ -196,6 +213,19 @@ public class Catamaran extends Applet implements Runnable
 				break;
 			}
 		}
+
+        // Cat and Acorn collisions
+        Iterator<AcornBooty> acornBootyIterator = acornBooties.iterator();
+        while (acornBootyIterator.hasNext())
+        {
+            AcornBooty acornBooty = acornBootyIterator.next();
+            if (catBox.intersects(acornBooty.collisionBox()))
+            {
+                crewmembers += 1;
+                acornBootyIterator.remove();
+                break;
+            }
+        }
 		
 		Iterator<SquirrelBullet> bulletIter;
 		Iterator<RoyalNavySeadog> doggiesIter = doggies.iterator();
@@ -333,6 +363,10 @@ public class Catamaran extends Applet implements Runnable
 		{
 			booty.paint(g);
 		}
+        for (AcornBooty acornBooty : acornBooties)
+        {
+            acornBooty.paint(g);
+        }
 		for (SquirrelBullet bullet : bullets)
 		{
 			bullet.paint(g);
