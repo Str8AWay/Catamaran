@@ -15,10 +15,10 @@ public class Catamaran extends Applet implements Runnable
 {
 	public static final String CATAMARAN_URL = "http://www.mscs.mu.edu/~fharunan/Games/Catamaran/resources/";
 
-	public final int GAMESTART = 1;
-	public final int GAMEPLAY = 2;
-	public final int GAMEWON = 3; 
-	public final int GAMELOST = 4; 
+	public final int GAMESTART = 0;
+	public final int GAMEPLAY = 1;
+	public final int GAMEWON = 2;
+	public final int GAMELOST = 3;
 	int gameState; 
 	
 	int level = 1;
@@ -221,6 +221,7 @@ public class Catamaran extends Applet implements Runnable
             AcornBooty acornBooty = acornBootyIterator.next();
             if (catBox.intersects(acornBooty.collisionBox()))
             {
+                crewmembers++;
                 acornBootyIterator.remove();
                 break;
             }
@@ -267,7 +268,6 @@ public class Catamaran extends Applet implements Runnable
 			if (!bullet.onscreen())
 			{
 				bulletIter.remove();
-				crewmembers++;
 				continue;
 			}
 
@@ -279,7 +279,6 @@ public class Catamaran extends Applet implements Runnable
 					points += 5;
 					doggiesIter.remove();
 					bulletIter.remove();
-					crewmembers++;
 					break; 
 				}
 			}
