@@ -1,0 +1,33 @@
+public class Grid
+{
+	// A Grid stores a cell-based map of blocks AND how many pixels per block
+
+	public static final int MWIDTH = 10;
+	public static final int MHEIGHT = 10;
+	int map[][] = new int[MWIDTH][MHEIGHT];
+	static final int CELLSIZE = 64; // Number of pixels per map cell
+	Catamaran app;
+
+	Grid(Catamaran a)
+	{
+		app = a;
+		for (int row = 0; row < MHEIGHT; row++)
+			for (int col = 0; col < MWIDTH; col++)
+				map[col][row] = 0;
+	}
+
+	public int width()
+	{
+		return MWIDTH*CELLSIZE;
+	}
+
+	public void setBlock(int x, int y)
+	{
+		map[x][y] = 1;
+	}
+
+	public void paint(Graphics g)
+	{
+
+	}
+}
