@@ -8,7 +8,7 @@ You control Cap'n Ferdinand Longwhiskers, an especially talented pirate and comm
 The Royal Navy Seadogs have found you, and it is up to you, Ferdie, to make sure they never again are able to harrass any feline pirate. <br>
 You also probably want to keep your treasure safe from them. You worked hard for that treasure, after all! Pillaging is no easy task. <br><br>
 
-Movement: arrow keys/WASD to move Ferdie. Press the spacebar to launch one of the crewmates to take down a Seadog ship. <br>
+Movement: arrow keys/WASD to move Ferdie. Press the spacebar to launch one of the crewmates to take down a Seadog ship. Press "R" to reset the game. <br>
 Goal: Sink all Seadogs before being sunk yourself. Collect treasure chests to increase your score!
 
 
@@ -16,11 +16,11 @@ Goal: Sink all Seadogs before being sunk yourself. Collect treasure chests to in
 
 
 <!-- TODO
-* Dog collision = bounce
-* Create dogBullet and acornBooty
-* Add dog bullet power & bullet AI 
-* Limit ammo (add acorn ammo pickups)
+* figure out what to do when dogs run into acorns
+* figure out what happens when you have no bullet :(
+* Create dogBullet
+* Add dog bullet power & bullet AI
 * Levels
 * Improve HUD [prettier points layout, remaining bullets, etc.]
-* improve graphics (add boats)
+* improve graphics (add boats and instructions)
 -->
