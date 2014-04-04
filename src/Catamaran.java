@@ -238,6 +238,13 @@ public class Catamaran extends Applet implements Runnable
         while (dogBulletIterator.hasNext())
         {
             DogBullet bullet = dogBulletIterator.next();
+
+            if (!bullet.onscreen())
+            {
+                dogBulletIterator.remove();
+                continue;
+            }
+
             // Cat and DogBullet collisions
             if (catBox.intersects(bullet.collisionBox()))
             {
@@ -336,7 +343,7 @@ public class Catamaran extends Applet implements Runnable
                 int x, y;
                 if (dog.dir == RoyalNavySeadog.RIGHT) x = dog.locx+dog.width-20;
                 else x = dog.locx-dog.width+20;
-                double dir = Math.atan(((double)(ferdie.locy - dog.locx))/(ferdie.locx - dog.locx));
+                double dir = Math.atan(((double) (ferdie.locy - dog.locx)) / (ferdie.locx - dog.locx));
                 dogBullets.add(new DogBullet(this, dogBulletImg, x, dog.locy, dir));
             }
         }
