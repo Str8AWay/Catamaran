@@ -15,7 +15,7 @@ public class Catamaran extends Applet implements Runnable
 {
 	public static final String CATAMARAN_URL = "http://www.mscs.mu.edu/~fharunan/Games/Catamaran/resources/";
 
-    public static int CHAR_SPEED = 4;
+    public static int CHAR_SPEED = 6;
 
 	public final int GAMESTART = 0;
 	public final int GAMEPLAY = 1;

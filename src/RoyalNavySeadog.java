@@ -42,7 +42,7 @@ public class RoyalNavySeadog extends Sprite
 		else if (dir == DOWN)
 		{
 			dx = 0; 
-			dy = (Catamaran.CHAR_SPEED);
+			dy = (Catamaran.CHAR_SPEED+1);
 		}
 		else 
 		{
@@ -51,11 +51,11 @@ public class RoyalNavySeadog extends Sprite
 		}
 		locx += dx;
 		locy += dy;
-		if ( (locy < app.MINY) || (locy + height > app.VHEIGHT) )
+		if ( (locy <= app.MINY) || (locy + height >= app.VHEIGHT) )
 		{
             switchDirection();
 		}
-		else if ( (locx < 0) || (locx + width > app.MAXX) )
+		else if ( (locx <= 0) || (locx + width >= app.MAXX) )
 		{
 			switchDirection();
 		}
@@ -67,21 +67,17 @@ public class RoyalNavySeadog extends Sprite
        {
            case UP:
                dir = DOWN;
-               update();
                break;
            case DOWN:
                dir = UP;
-               update();
                break;
            case LEFT:
                dir = RIGHT;
                dogImg = flipImageHor(dogImg);
-               update();
                break;
            case RIGHT:
                dir = LEFT;
                dogImg = flipImageHor(dogImg);
-               update();
                break;
        }
     }
