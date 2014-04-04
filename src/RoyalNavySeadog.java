@@ -26,23 +26,23 @@ public class RoyalNavySeadog extends Sprite
 	{
 		if (dir == LEFT)
 		{
-			dx = -5;
+			dx = -(Catamaran.CHAR_SPEED+1);
 			dy = 0; 
 		}
 		else if (dir == RIGHT)
 		{
-			dx = 5;
+			dx = (Catamaran.CHAR_SPEED+1);
 			dy = 0; 
 		}
 		else if (dir == UP)
 		{
 			dx = 0; 
-			dy = -5; 
+			dy = -(Catamaran.CHAR_SPEED+1);
 		}
 		else if (dir == DOWN)
 		{
 			dx = 0; 
-			dy = 5; 
+			dy = (Catamaran.CHAR_SPEED);
 		}
 		else 
 		{

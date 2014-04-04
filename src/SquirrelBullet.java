@@ -9,9 +9,9 @@ public class SquirrelBullet extends Bullet
 		if (dir == CapnFerdinandLongwhiskers.LEFT)
 		{
 			bulletImg = flipImageHor(bulletImg);
-			dx = -8;
+			dx = -(Catamaran.CHAR_SPEED*2);
 		}
-		else dx = 8;
+		else dx = (Catamaran.CHAR_SPEED*2);
 	}
 	
 	public void update() 

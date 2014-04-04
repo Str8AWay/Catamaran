@@ -15,6 +15,8 @@ public class Catamaran extends Applet implements Runnable
 {
 	public static final String CATAMARAN_URL = "http://www.mscs.mu.edu/~fharunan/Games/Catamaran/resources/";
 
+    public static int CHAR_SPEED = 4;
+
 	public final int GAMESTART = 0;
 	public final int GAMEPLAY = 1;
 	public final int GAMEWON = 2;
@@ -454,20 +456,20 @@ public class Catamaran extends Applet implements Runnable
 				case KeyEvent.VK_A: 
 				case KeyEvent.VK_LEFT:
 					ferdie.setDir(CapnFerdinandLongwhiskers.LEFT);
-					ferdie.dx = -4;
+					ferdie.dx = -CHAR_SPEED;
 					break;
 				case KeyEvent.VK_RIGHT:
 				case KeyEvent.VK_D: 
 					ferdie.setDir(CapnFerdinandLongwhiskers.RIGHT);
-					ferdie.dx = 4;
+					ferdie.dx = CHAR_SPEED;
 					break;
 				case KeyEvent.VK_UP:
 				case KeyEvent.VK_W:
-					ferdie.dy = -4;
+					ferdie.dy = -CHAR_SPEED;
 					break;
 				case KeyEvent.VK_DOWN:
 				case KeyEvent.VK_S:  
-					ferdie.dy = 4;
+					ferdie.dy = CHAR_SPEED;
 					break;
 				case KeyEvent.VK_R:
 					init();
