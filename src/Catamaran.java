@@ -77,7 +77,7 @@ public class Catamaran extends Applet implements Runnable
         buffer = createImage(VWIDTH,VHEIGHT);
 		bufgr = buffer.getGraphics();
 		font = new Font("Arial",Font.ITALIC,30);
-        fontSmall = new Font("small", Font.PLAIN, 10);
+        fontSmall = new Font("small", Font.PLAIN, 15);
 
 	    // The following statements are necessary in order to host all game files up on mscs, because each
 	    // individual computer needs to download all images.
@@ -138,10 +138,10 @@ public class Catamaran extends Applet implements Runnable
             dogTreasure = getAudioClip(new URL(CATAMARAN_URL + "dogTreasure.wav")); 
         } catch (MalformedURLException e) {}
 
-	    try {
+/*	    try {
 		    tortuga = getAudioClip(new URL(CATAMARAN_URL + "tortuga.wav"));
 	    } catch (MalformedURLException e) {}
-
+*/
         // Chill while images aren't loaded from the interwebz
         while (capt.getHeight(this) == -1 || dog.getHeight(this) == -1 ||
                 chest.getHeight(this) == -1 || bulletImg.getHeight(this) == -1 ||
@@ -149,7 +149,7 @@ public class Catamaran extends Applet implements Runnable
                 dogBulletImg.getHeight(this) == -1);
         
         // Start looping the background song
-        tortuga.loop();
+//        tortuga.loop();
 	}
 
     public void startNewLevel()
@@ -446,17 +446,21 @@ public class Catamaran extends Applet implements Runnable
 				g.fillRect(0,0,VWIDTH,VHEIGHT);
 				g.setColor(Color.blue);
 				g.setFont(font);
-				g.drawString("Click to Start", VWIDTH/2 - 100, 100);
+                g.drawString("Welcome to Catamaran!", VWIDTH/2 - 180, 100);
+				g.drawString("Click to Start", VWIDTH/2 - 100, 170);
                 g.setFont(fontSmall);
-                g.drawString("Welcome to Catamaran!", 10, 200);
-                g.drawString("You control Cap'n Ferdinand Longwhiskers, an especially talented pirate and commander of a crew of fiercely loyal waterskiing squirrels.", 10, 250);
-                g.drawString("The Royal Navy Seadogs have found you, and it is up to you, Ferdie, to make sure they can never harrass you again.", 10, 300);
-                g.drawString("Pick up your treasure before the Seadogs can get to it--you worked hard for that treasure!", 10, 350);
-                g.drawString("Collect acorns to gather crewmembers. Sink all dogs before being sunk yourself.", 10, 400);
-                g.drawString("Controls:", 10, 450);
-                g.drawString("Arrow Keys/WASD to move Ferdie", 10, 500);
-                g.drawString("Spacebar to launch a crewmate to take down a Seadog ship", 10, 550);
-                g.drawString("'R' to reset the game", 10, 600);
+                g.drawString("You control Cap'n Ferdinand Longwhiskers, an especially talented pirate ", 10, 250);
+                g.drawString("and commander of a crew of fiercely loyal waterskiing squirrels.", 30, 280);
+                g.drawString("The Royal Navy Seadogs have found you, and it is up to you, Ferdie,", 10, 310);
+                g.drawString("to make sure they can never harrass you again.", 30, 340);
+                g.drawString("Pick up your treasure before the Seadogs can get to it;", 10, 370);
+                g.drawString("you worked hard for that treasure!", 30, 400);
+                g.drawString("Collect acorns to gather crewmembers.", 10, 430);
+                g.drawString("Sink all dogs before being sunk yourself.", 10, 460);
+                g.drawString("Controls:", 10, 520);
+                g.drawString("Arrow Keys/WASD to move Ferdie", 30, 550);
+                g.drawString("Spacebar to launch a crewmate to take down a Seadog ship", 30, 580);
+                g.drawString("'R' to reset the game", 30, 610);
                 g.setFont(font);
 				break;
 
