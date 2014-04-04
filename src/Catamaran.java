@@ -21,13 +21,17 @@ public class Catamaran extends Applet implements Runnable
 	public final int GAMELOST = 3;
 	int gameState; 
 	
-	int level = 1;
+	int level;
 	CapnFerdinandLongwhiskers ferdie;
 	ArrayList<RoyalNavySeadog> doggies;
 	ArrayList<Booty> booties;
     ArrayList<AcornBooty> acornBooties;
 	ArrayList<SquirrelBullet> bullets;
     ArrayList<DogBullet> dogBullets;
+    Image capt;
+    Image dog;
+    Image chest;
+    Image acornImg;
 	Image bulletImg;
     Image dogBulletImg;
 	Thread anim;
@@ -55,27 +59,22 @@ public class Catamaran extends Applet implements Runnable
 			addKeyListener(new keyL());
 		}
 
-		gameState = GAMESTART;
+        gameState = GAMESTART;
+		points = 0;
+        level = 1;
 
-		points = 0; 
-		spaceReleased = false; 
-		crewmembers = 0;
-
-		buffer = createImage(VWIDTH,VHEIGHT);
+        buffer = createImage(VWIDTH,VHEIGHT);
 		bufgr = buffer.getGraphics();
 		font = new Font("Arial",Font.ITALIC,30);
 
-		Image capt = null;
 		try {
 			capt = getImage(new URL(CATAMARAN_URL + "catBlock.png"));
 		} catch (MalformedURLException e) {}
 
-		Image dog = null;
 		try {
 			dog = getImage(new URL(CATAMARAN_URL + "dogBlock.png"));
 		} catch (MalformedURLException e) {}
 
-		Image chest = null;
 		try {
 			chest = getImage(new URL(CATAMARAN_URL + "treasureBlock.png"));
 		} catch (MalformedURLException e) {}
@@ -84,7 +83,6 @@ public class Catamaran extends Applet implements Runnable
 			bulletImg = getImage(new URL(CATAMARAN_URL + "squirrelBlock.png"));
 		} catch (MalformedURLException e) {}
 
-        Image acornImg = null;
         try {
             acornImg = getImage(new URL(CATAMARAN_URL + "acornBlock.png"));
         } catch (MalformedURLException e) {}
@@ -102,6 +100,12 @@ public class Catamaran extends Applet implements Runnable
                 chest.getHeight(this) == -1 || bulletImg.getHeight(this) == -1 ||
                 bkgnd.getHeight(this) == -1 || acornImg.getHeight(this) == -1 ||
                 dogBulletImg.getHeight(this) == -1);
+	}
+
+    public void startNewLevel()
+    {
+        spaceReleased = false;
+        crewmembers = 0;
 
         // Create sprite objects
         ferdie = new CapnFerdinandLongwhiskers(this, capt, 50, 249);
@@ -121,9 +125,9 @@ public class Catamaran extends Applet implements Runnable
         {
             acornBooties.add(new AcornBooty(this, acornImg, rm.nextInt(MAXX - 64), rm.nextInt(VHEIGHT-MINY-64)+MINY));
         }
-		bullets = new ArrayList<SquirrelBullet>();
+        bullets = new ArrayList<SquirrelBullet>();
         dogBullets = new ArrayList<DogBullet>();
-	}
+    }
 
 	public void start()
 	{
@@ -328,7 +332,8 @@ public class Catamaran extends Applet implements Runnable
 		// If all dogs have been killed, then we won the level
 		if (doggies.isEmpty())
 		{
-			gameState = GAMEWON; 
+			gameState = GAMEWON;
+            level++;
 		}
 	}
 
@@ -375,6 +380,7 @@ public class Catamaran extends Applet implements Runnable
 			case GAMEWON:
 				drawBoard(g);
 				g.drawString("You win!",100,100);
+                g.drawString("Click to Start", VWIDTH/2 - 100, VHEIGHT/2);
 				break;
 
 			case GAMELOST:
@@ -428,8 +434,11 @@ public class Catamaran extends Applet implements Runnable
 		public void mouseClicked(MouseEvent e)
 		{
 			requestFocus();
-			if (gameState == GAMESTART) 
-				gameState = GAMEPLAY; 
+			if (gameState == GAMESTART || gameState == GAMEWON)
+            {
+                startNewLevel();
+				gameState = GAMEPLAY;
+            }
 		}
 	}
 
