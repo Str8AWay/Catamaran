@@ -94,7 +94,10 @@ public class RoyalNavySeadog extends Sprite
 
     public boolean readyToFire()
     {
-        if (System.currentTimeMillis() - lastFired > 3000)
+        // vary cannonball fire time to be between 0 (exclusive) and 5 (inclusive) seconds
+        Random rm = new Random();
+        int randomFireTime = 500 * (rm.nextInt(10)+1);
+        if (System.currentTimeMillis() - lastFired > randomFireTime)
         {
             lastFired = System.currentTimeMillis();
             return true;

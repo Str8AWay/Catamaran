@@ -421,7 +421,7 @@ public class Catamaran extends Applet implements Runnable
             RoyalNavySeadog dog = doggiesIter.next();
             if (dog.onscreen() && dog.readyToFire())
             {
-                int x, y;
+                int x;
                 if (dog.dir == RoyalNavySeadog.RIGHT) x = dog.locx+dog.width-20;
                 else x = dog.locx-dog.width+20;
                 double dir = Math.atan(((double) (ferdie.locy - dog.locx)) / (ferdie.locx - dog.locx));
