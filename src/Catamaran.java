@@ -72,6 +72,7 @@ public class Catamaran extends Applet implements Runnable
 
         gameState = GAMESTART;
 		points = 0;
+        crewmembers = 0;
         level = 1;
 
         buffer = createImage(VWIDTH,VHEIGHT);
@@ -155,7 +156,6 @@ public class Catamaran extends Applet implements Runnable
     public void startNewLevel()
     {
         spaceReleased = false;
-        crewmembers = 0;
 
         // Create sprite objects
         ferdie = new CapnFerdinandLongwhiskers(this, capt, 50, 249);
@@ -521,7 +521,7 @@ public class Catamaran extends Applet implements Runnable
         }
 		g.setColor(Color.black);
 		g.setFont(font);	
-		g.drawString("Points: " + points, 100, 140);
+		g.drawString("Points: " + points, 100, 50);
         g.drawString("x" + crewmembers, 525, 50);
         g.drawImage(bulletImg, 485, 15, 40, 40, null);
 	}
