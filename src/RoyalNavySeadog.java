@@ -3,7 +3,8 @@ import java.util.*;
 
 public class RoyalNavySeadog extends Sprite
 {
-	Image dogImg; 
+	Image dogImg;
+    long lastFired = 0;
 
 	public RoyalNavySeadog(Catamaran a, Image img, int x, int y)
 	{
@@ -84,8 +85,24 @@ public class RoyalNavySeadog extends Sprite
                break;
        }
     }
-	public Rectangle collisionBox()
+
+    public Rectangle collisionBox()
 	{
 		return new Rectangle(locx+10, locy+10, width-20, height-20);
 	}
+
+    public boolean onscreen()
+    {
+        return collisionBox().intersects(new Rectangle(app.vleft, 0, app.vleft + app.VWIDTH, app.VHEIGHT));
+    }
+
+    public boolean readyToFire()
+    {
+        if (System.currentTimeMillis() - lastFired > 3000)
+        {
+            lastFired = System.currentTimeMillis();
+            return true;
+        }
+        return false;
+    }
 }

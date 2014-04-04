@@ -27,7 +27,9 @@ public class Catamaran extends Applet implements Runnable
 	ArrayList<Booty> booties;
     ArrayList<AcornBooty> acornBooties;
 	ArrayList<SquirrelBullet> bullets;
+    ArrayList<DogBullet> dogBullets;
 	Image bulletImg;
+    Image dogBulletImg;
 	Thread anim;
 	Image buffer;
 	Graphics bufgr;
@@ -87,7 +89,6 @@ public class Catamaran extends Applet implements Runnable
             acornImg = getImage(new URL(CATAMARAN_URL + "acornBlock.png"));
         } catch (MalformedURLException e) {}
 
-        Image dogBulletImg = null;
         try {
             dogBulletImg = getImage(new URL(CATAMARAN_URL + "cannonballBlock.png"));
         } catch (MalformedURLException e) {}
@@ -121,6 +122,7 @@ public class Catamaran extends Applet implements Runnable
             acornBooties.add(new AcornBooty(this, acornImg, rm.nextInt(MAXX - 64), rm.nextInt(VHEIGHT-MINY-64)+MINY));
         }
 		bullets = new ArrayList<SquirrelBullet>();
+        dogBullets = new ArrayList<DogBullet>();
 	}
 
 	public void start()
@@ -163,8 +165,13 @@ public class Catamaran extends Applet implements Runnable
 					{
 						bullet.update();
 					}
+                    for (DogBullet bullet : dogBullets)
+                    {
+                        bullet.update();
+                    }
 					checkScrolling();
 					checkCollisions();
+                    checkBulletFire();
 					repaint();
 					break;
 				case GAMESTART:
@@ -226,8 +233,22 @@ public class Catamaran extends Applet implements Runnable
                 break;
             }
         }
-		
-		Iterator<SquirrelBullet> bulletIter;
+
+        Iterator<DogBullet> dogBulletIterator = dogBullets.iterator();
+        while (dogBulletIterator.hasNext())
+        {
+            DogBullet bullet = dogBulletIterator.next();
+            // Cat and DogBullet collisions
+            if (catBox.intersects(bullet.collisionBox()))
+            {
+                gameState = GAMELOST;
+                //ferdie.capt = ferdie.flipImageHor(ferdie.capt);
+                ferdie.capt = ferdie.flipImageVert(ferdie.capt);
+                break;
+            }
+        }
+
+        Iterator<SquirrelBullet> bulletIter;
 		Iterator<RoyalNavySeadog> doggiesIter = doggies.iterator();
 		while(doggiesIter.hasNext())
 		{
@@ -304,6 +325,23 @@ public class Catamaran extends Applet implements Runnable
 		}
 	}
 
+    void checkBulletFire()
+    {
+        Iterator<RoyalNavySeadog> doggiesIter = doggies.iterator();
+        while(doggiesIter.hasNext())
+        {
+            RoyalNavySeadog dog = doggiesIter.next();
+            if (dog.onscreen() && dog.readyToFire())
+            {
+                int x, y;
+                if (dog.dir == RoyalNavySeadog.RIGHT) x = dog.locx+dog.width-20;
+                else x = dog.locx-dog.width+20;
+                double dir = Math.atan(((double)(ferdie.locy - dog.locx))/(ferdie.locx - dog.locx));
+                dogBullets.add(new DogBullet(this, dogBulletImg, x, dog.locy, dir));
+            }
+        }
+    }
+
 	public void update(Graphics g)
 	{
 		paint(bufgr);
@@ -369,6 +407,10 @@ public class Catamaran extends Applet implements Runnable
 		{
 			bullet.paint(g);
 		}
+        for (DogBullet bullet : dogBullets)
+        {
+            bullet.paint(g);
+        }
 		g.setColor(Color.black);
 		g.setFont(font);	
 		g.drawString("Points: " + points, 100, 140);

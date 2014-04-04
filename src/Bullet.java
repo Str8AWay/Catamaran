@@ -19,8 +19,6 @@ public abstract class Bullet extends Sprite {
         //g.drawRect(locx-app.vleft+10, locy+10, width-20, height-20);
     }
 
-    public abstract void update();
-
     public Rectangle collisionBox()
     {
         return new Rectangle(locx, locy, width, height);
