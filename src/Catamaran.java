@@ -115,7 +115,26 @@ public class Catamaran extends Applet implements Runnable
         Random rm = new Random();
         for (int i = 0; i < level*5; i++)
         {
-            doggies.add(new RoyalNavySeadog(this, dog, rm.nextInt(MAXX - 64 - 128) + 128, rm.nextInt(VHEIGHT-MINY-64)+MINY));
+            boolean overlap = true;
+            int x = 0;
+            int y = 0;
+            // Ensure dogs don't overlap
+            while(overlap)
+            {
+                x = rm.nextInt(MAXX - 64 - 128) + 128;
+                y = rm.nextInt(VHEIGHT-MINY-64)+MINY;
+
+                overlap = false;
+                for (RoyalNavySeadog dog : doggies)
+                {
+                    if (dog.collisionBox().intersects(new Rectangle(x, y, 64, 64)))
+                    {
+                        overlap = true;
+                        break;
+                    }
+                }
+            }
+            doggies.add(new RoyalNavySeadog(this, dog, x, y));
         }
         booties = new ArrayList<Booty>();
         for (int i = 0; i < level*10; i++)
