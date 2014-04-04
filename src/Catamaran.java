@@ -52,6 +52,13 @@ public class Catamaran extends Applet implements Runnable
 	int points; 
 	boolean spaceReleased; 
 	int crewmembers; 
+	AudioClip ferdieDead;
+	AudioClip cannonFired;
+	AudioClip squirrelHitsDog;
+	AudioClip fireSquirrel;
+	AudioClip collectAcorn;
+	AudioClip collectTreasure;
+    AudioClip tortuga;
 
 	public void init()
 	{
@@ -69,21 +76,24 @@ public class Catamaran extends Applet implements Runnable
 		bufgr = buffer.getGraphics();
 		font = new Font("Arial",Font.ITALIC,30);
 
-		try {
-			capt = getImage(new URL(CATAMARAN_URL + "catBlock.png"));
-		} catch (MalformedURLException e) {}
+	    // The following statements are necessary in order to host all game files up on mscs, because each
+	    // individual computer needs to download all images.
+		
+	    try {
+		    capt = getImage(new URL(CATAMARAN_URL + "catBlock.png"));
+	    } catch (MalformedURLException e) {}
 
-		try {
-			dog = getImage(new URL(CATAMARAN_URL + "dogBlock.png"));
-		} catch (MalformedURLException e) {}
+	    try {
+	    	dog = getImage(new URL(CATAMARAN_URL + "dogBlock.png"));
+	    } catch (MalformedURLException e) {}
 
-		try {
-			chest = getImage(new URL(CATAMARAN_URL + "treasureBlock.png"));
-		} catch (MalformedURLException e) {}
+	    try {
+	    	chest = getImage(new URL(CATAMARAN_URL + "treasureBlock.png"));
+	    } catch (MalformedURLException e) {}
 
-		try {
-			bulletImg = getImage(new URL(CATAMARAN_URL + "squirrelBlock.png"));
-		} catch (MalformedURLException e) {}
+	    try {
+		    bulletImg = getImage(new URL(CATAMARAN_URL + "squirrelBlock.png"));
+	    } catch (MalformedURLException e) {}	
 
         try {
             acornImg = getImage(new URL(CATAMARAN_URL + "acornBlock.png"));
@@ -97,11 +107,46 @@ public class Catamaran extends Applet implements Runnable
             bkgnd = getImage(new URL(CATAMARAN_URL + "beach.png"));
         } catch (MalformedURLException e) {}
 
+	    try {
+		    ferdieDead = getAudioClip(new URL(CATAMARAN_URL + "ferdieDead.mp3"));
+	    } catch (MalformedURLException e) {}
+
+	    try {
+		    ferdieDead = getAudioClip(new URL(CATAMARAN_URL + "ferdieDead.mp3"));
+	    } catch (MalformedURLException e) {}
+
+	    try {
+		    cannonFired = getAudioClip(new URL(CATAMARAN_URL + "cannonFired.mp3"));
+	    } catch (MalformedURLException e) {}
+
+	    try {
+		    squirrelHitsDog = getAudioClip(new URL(CATAMARAN_URL + "squirrelHitsDog.mp3"));
+	    } catch (MalformedURLException e) {}
+
+	    try {
+		    fireSquirrel = getAudioClip(new URL(CATAMARAN_URL + "fireSquirrel.wav"));
+	    } catch (MalformedURLException e) {}
+
+	    try {
+		    collectAcorn = getAudioClip(new URL(CATAMARAN_URL + "collectAcorn.wav"));
+	    } catch (MalformedURLException e) {}
+
+	    try {
+		    collectTreasure = getAudioClip(new URL(CATAMARAN_URL + "collectTreasure.wav"));
+	    } catch (MalformedURLException e) {}
+
+	    try {
+		    tortuga = getAudioClip(new URL(CATAMARAN_URL + "tortuga.mp3"));
+	    } catch (MalformedURLException e) {}
+
         // Chill while images aren't loaded from the interwebz
         while (capt.getHeight(this) == -1 || dog.getHeight(this) == -1 ||
                 chest.getHeight(this) == -1 || bulletImg.getHeight(this) == -1 ||
                 bkgnd.getHeight(this) == -1 || acornImg.getHeight(this) == -1 ||
                 dogBulletImg.getHeight(this) == -1);
+        
+        // Start looping the background song
+        tortuga.loop();
 	}
 
     public void startNewLevel()
@@ -173,6 +218,7 @@ public class Catamaran extends Applet implements Runnable
 					{
 						if (crewmembers > 0)
 						{
+                            fireSquirrel.play();
 							int bulX;
 							if (ferdie.dir == CapnFerdinandLongwhiskers.RIGHT) bulX = ferdie.locx+ferdie.width-20;
 							else bulX = ferdie.locx-ferdie.width+20;
@@ -240,6 +286,7 @@ public class Catamaran extends Applet implements Runnable
 			Booty booty = treasureIter.next();
 			if (catBox.intersects(booty.collisionBox()))
 			{
+                collectTreasure.play();
 				points += 10;
 				treasureIter.remove();
 				break;
@@ -253,6 +300,7 @@ public class Catamaran extends Applet implements Runnable
             AcornBooty acornBooty = acornBootyIterator.next();
             if (catBox.intersects(acornBooty.collisionBox()))
             {
+                collectAcorn.play();
                 crewmembers++;
                 acornBootyIterator.remove();
                 break;
@@ -273,8 +321,9 @@ public class Catamaran extends Applet implements Runnable
             // Cat and DogBullet collisions
             if (catBox.intersects(bullet.collisionBox()))
             {
+                tortuga.stop();
+                ferdieDead.play();
                 gameState = GAMELOST;
-                //ferdie.capt = ferdie.flipImageHor(ferdie.capt);
                 ferdie.capt = ferdie.flipImageVert(ferdie.capt);
                 break;
             }
@@ -290,8 +339,9 @@ public class Catamaran extends Applet implements Runnable
 			Rectangle dogBox = dog.collisionBox();
 			if (catBox.intersects(dogBox)) 
 			{  
+                tortuga.stop();
+                ferdieDead.play();
 				gameState = GAMELOST;
-				//ferdie.capt = ferdie.flipImageHor(ferdie.capt);
 				ferdie.capt = ferdie.flipImageVert(ferdie.capt);
 				break;
 			}
@@ -303,6 +353,7 @@ public class Catamaran extends Applet implements Runnable
 				Booty booty = treasureIter.next();
 				if (dogBox.intersects(booty.collisionBox()) && booty.onscreen()) // Only lets dogs get treasure if it is onscreen
 				{
+                    collectTreasure.play();
 					points -= 10;
 					treasureIter.remove();
 					break;
@@ -329,6 +380,7 @@ public class Catamaran extends Applet implements Runnable
 				RoyalNavySeadog dog = doggiesIter.next();
 				if (bullet.collisionBox().intersects(dog.collisionBox()))
 				{
+                    squirrelHitsDog.play();
 					points += 5;
 					doggiesIter.remove();
 					bulletIter.remove();
@@ -401,7 +453,7 @@ public class Catamaran extends Applet implements Runnable
 			case GAMEWON:
 				drawBoard(g);
 				g.drawString("You win!",100,100);
-                g.drawString("Click to Start", VWIDTH/2 - 100, VHEIGHT/2);
+                g.drawString("Click to Start Next Level", VWIDTH/2 - 100, VHEIGHT/2);
 				break;
 
 			case GAMELOST:
