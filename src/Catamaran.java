@@ -246,6 +246,8 @@ public class Catamaran extends Applet implements Runnable
 					checkScrolling();
 					checkCollisions();
                     checkBulletFire();
+                    if (acornBooties.isEmpty() && crewmembers == 0 && bullets.isEmpty())
+                        gameState = GAMELOST;
 					repaint();
 					break;
 				case GAMESTART:
@@ -477,6 +479,8 @@ public class Catamaran extends Applet implements Runnable
 			case GAMELOST:
 				drawBoard(g);
 				g.drawString("You lose.",100,100);
+                if (acornBooties.isEmpty() && crewmembers == 0 && bullets.isEmpty())
+                    g.drawString("No more squirrels :(", VWIDTH/2 - 90, VHEIGHT/2);
 				break;
 		}		
 	}
