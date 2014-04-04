@@ -490,12 +490,14 @@ public class Catamaran extends Applet implements Runnable
 		g.setColor(Color.white);
 		g.fillRect(0,0,VWIDTH,VHEIGHT);
 		g.setClip(0,0,VWIDTH,VHEIGHT);
+
+        // Max board size = 8 * VWIDTH
 		cut = vleft;
 		g.drawImage(bkgnd, -cut, 0, this);
-		g.drawImage(bkgnd, 1280-cut, 0, this);
-		g.drawImage(bkgnd, 2560-cut, 0, this);
-		g.drawImage(bkgnd, 3840-cut, 0, this);
-		g.drawImage(bkgnd, 5120-cut, 0, this);
+		g.drawImage(bkgnd, VWIDTH*2-cut, 0, this);
+		g.drawImage(bkgnd, VWIDTH*4-cut, 0, this);
+		g.drawImage(bkgnd, VWIDTH*6-cut, 0, this);
+		g.drawImage(bkgnd, VWIDTH*8-cut, 0, this);
 
 		ferdie.paint(g);
 
