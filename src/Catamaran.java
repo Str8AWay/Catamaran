@@ -545,52 +545,58 @@ public class Catamaran extends Applet implements Runnable
 	{
 		public void keyPressed(KeyEvent e)
 		{
-			int key = e.getKeyCode();
-			switch (key)
-			{
-				case KeyEvent.VK_A: 
-				case KeyEvent.VK_LEFT:
-					ferdie.setDir(CapnFerdinandLongwhiskers.LEFT);
-					ferdie.dx = -CHAR_SPEED;
-					break;
-				case KeyEvent.VK_RIGHT:
-				case KeyEvent.VK_D: 
-					ferdie.setDir(CapnFerdinandLongwhiskers.RIGHT);
-					ferdie.dx = CHAR_SPEED;
-					break;
-				case KeyEvent.VK_UP:
-				case KeyEvent.VK_W:
-					ferdie.dy = -CHAR_SPEED;
-					break;
-				case KeyEvent.VK_DOWN:
-				case KeyEvent.VK_S:  
-					ferdie.dy = CHAR_SPEED;
-					break;
-				case KeyEvent.VK_R:
-					init();
-					break;
-			}
+            if (gameState == GAMEPLAY)
+            {
+			    int key = e.getKeyCode();
+			    switch (key)
+			    {
+				    case KeyEvent.VK_A: 
+				    case KeyEvent.VK_LEFT:
+					    ferdie.setDir(CapnFerdinandLongwhiskers.LEFT);
+					    ferdie.dx = -CHAR_SPEED;
+					    break;
+				    case KeyEvent.VK_RIGHT:
+				    case KeyEvent.VK_D: 
+					    ferdie.setDir(CapnFerdinandLongwhiskers.RIGHT);
+					    ferdie.dx = CHAR_SPEED;
+					    break;
+				    case KeyEvent.VK_UP:
+				    case KeyEvent.VK_W:
+					    ferdie.dy = -CHAR_SPEED;
+					    break;
+				    case KeyEvent.VK_DOWN:
+				    case KeyEvent.VK_S:  
+					    ferdie.dy = CHAR_SPEED;
+					    break;
+				    case KeyEvent.VK_R:
+					    init();
+					    break;
+			    }
+            }
 		}
 		public void keyReleased(KeyEvent e)
 		{
-			int key = e.getKeyCode();
-			switch (key)
-			{
-				case KeyEvent.VK_A: 
-				case KeyEvent.VK_LEFT:
-				case KeyEvent.VK_RIGHT:
-				case KeyEvent.VK_D:
-					ferdie.dx = 0;
-				case KeyEvent.VK_UP:
-				case KeyEvent.VK_W:
-				case KeyEvent.VK_DOWN:
-				case KeyEvent.VK_S:
-					ferdie.dy = 0;
-					break;
-				case KeyEvent.VK_SPACE:
-					spaceReleased = true; 
-					break;
-			}
+            if (gameState == GAMEPLAY)
+            {
+			    int key = e.getKeyCode();
+			    switch (key)
+			    {
+				    case KeyEvent.VK_A: 
+				    case KeyEvent.VK_LEFT:
+				    case KeyEvent.VK_RIGHT:
+				    case KeyEvent.VK_D:
+					    ferdie.dx = 0;
+				    case KeyEvent.VK_UP:
+				    case KeyEvent.VK_W:
+				    case KeyEvent.VK_DOWN:
+				    case KeyEvent.VK_S:
+					    ferdie.dy = 0;
+					    break;
+				    case KeyEvent.VK_SPACE:
+					    spaceReleased = true; 
+					    break;
+			    }
+            }
 		}
 	}
 }
