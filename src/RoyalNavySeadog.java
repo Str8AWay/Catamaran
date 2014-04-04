@@ -96,7 +96,7 @@ public class RoyalNavySeadog extends Sprite
     {
         // vary cannonball fire time to be between 0 (exclusive) and 5 (inclusive) seconds
         Random rm = new Random();
-        int randomFireTime = 500 * (rm.nextInt(10)+1);
+        int randomFireTime = 1000 * (rm.nextInt(5)+1);
         if (System.currentTimeMillis() - lastFired > randomFireTime)
         {
             lastFired = System.currentTimeMillis();
