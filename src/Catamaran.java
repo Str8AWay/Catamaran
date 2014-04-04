@@ -115,7 +115,7 @@ public class Catamaran extends Applet implements Runnable
         Random rm = new Random();
         for (int i = 0; i < level*5; i++)
         {
-            doggies.add(new RoyalNavySeadog(this, dog, rm.nextInt(MAXX - 64), rm.nextInt(VHEIGHT-MINY-64)+MINY));
+            doggies.add(new RoyalNavySeadog(this, dog, rm.nextInt(MAXX - 64 - 128) + 128, rm.nextInt(VHEIGHT-MINY-64)+MINY));
         }
         booties = new ArrayList<Booty>();
         for (int i = 0; i < level*10; i++)
