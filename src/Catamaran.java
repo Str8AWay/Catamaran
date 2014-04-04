@@ -42,6 +42,7 @@ public class Catamaran extends Applet implements Runnable
 	Image bkgnd;
 	int cut;
 	Font font;
+    Font fontSmall; 
 	int FRAME_DELAY = 50;
 	public static final int VWIDTH = 640;
 	public static final int VHEIGHT = 640;
@@ -59,6 +60,7 @@ public class Catamaran extends Applet implements Runnable
 	AudioClip collectAcorn;
 	AudioClip collectTreasure;
     AudioClip tortuga;
+    AudioClip dogTreasure;
 
 	public void init()
 	{
@@ -75,6 +77,7 @@ public class Catamaran extends Applet implements Runnable
         buffer = createImage(VWIDTH,VHEIGHT);
 		bufgr = buffer.getGraphics();
 		font = new Font("Arial",Font.ITALIC,30);
+        fontSmall = new Font("small", Font.PLAIN, 10);
 
 	    // The following statements are necessary in order to host all game files up on mscs, because each
 	    // individual computer needs to download all images.
@@ -130,6 +133,10 @@ public class Catamaran extends Applet implements Runnable
 	    try {
 		    collectTreasure = getAudioClip(new URL(CATAMARAN_URL + "collectTreasure.wav"));
 	    } catch (MalformedURLException e) {}
+
+        try {
+            dogTreasure = getAudioClip(new URL(CATAMARAN_URL + "dogTreasure.wav")); 
+        } catch (MalformedURLException e) {}
 
 	    try {
 		    tortuga = getAudioClip(new URL(CATAMARAN_URL + "tortuga.wav"));
@@ -349,7 +356,7 @@ public class Catamaran extends Applet implements Runnable
 				Booty booty = treasureIter.next();
 				if (dogBox.intersects(booty.collisionBox()) && booty.onscreen()) // Only lets dogs get treasure if it is onscreen
 				{
-                    collectTreasure.play();
+                    dogTreasure.play();
 					points -= 10;
 					treasureIter.remove();
 					break;
@@ -439,7 +446,18 @@ public class Catamaran extends Applet implements Runnable
 				g.fillRect(0,0,VWIDTH,VHEIGHT);
 				g.setColor(Color.blue);
 				g.setFont(font);
-				g.drawString("Click to Start", VWIDTH/2 - 100, VHEIGHT/2);
+				g.drawString("Click to Start", VWIDTH/2 - 100, 100);
+                g.setFont(fontSmall);
+                g.drawString("Welcome to Catamaran!", 10, 200);
+                g.drawString("You control Cap'n Ferdinand Longwhiskers, an especially talented pirate and commander of a crew of fiercely loyal waterskiing squirrels.", 10, 250);
+                g.drawString("The Royal Navy Seadogs have found you, and it is up to you, Ferdie, to make sure they can never harrass you again.", 10, 300);
+                g.drawString("Pick up your treasure before the Seadogs can get to it--you worked hard for that treasure!", 10, 350);
+                g.drawString("Collect acorns to gather crewmembers. Sink all dogs before being sunk yourself.", 10, 400);
+                g.drawString("Controls:", 10, 450);
+                g.drawString("Arrow Keys/WASD to move Ferdie", 10, 500);
+                g.drawString("Spacebar to launch a crewmate to take down a Seadog ship", 10, 550);
+                g.drawString("'R' to reset the game", 10, 600);
+                g.setFont(font);
 				break;
 
 			case GAMEPLAY:
