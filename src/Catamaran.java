@@ -10,6 +10,7 @@ import java.applet.*;
 import java.net.*;
 import java.util.*;
 import java.awt.Image.*; 
+import javafx.scene.media.*;
 
 public class Catamaran extends Applet implements Runnable
 {
@@ -52,13 +53,13 @@ public class Catamaran extends Applet implements Runnable
 	int points; 
 	boolean spaceReleased; 
 	int crewmembers; 
-	AudioClip ferdieDead;
-	AudioClip cannonFired;
+	MediaPlayer ferdieDead;
+	MediaPlayer cannonFired;
 	AudioClip squirrelHitsDog;
 	AudioClip fireSquirrel;
 	AudioClip collectAcorn;
 	AudioClip collectTreasure;
-    AudioClip tortuga;
+    MediaPlayer tortuga;
 
 	public void init()
 	{
@@ -108,19 +109,15 @@ public class Catamaran extends Applet implements Runnable
         } catch (MalformedURLException e) {}
 
 	    try {
-		    ferdieDead = getAudioClip(new URL(CATAMARAN_URL + "ferdieDead.mp3"));
+		    ferdieDead = getAudioClip(new URL(CATAMARAN_URL + "ferdieDead.wav"));
 	    } catch (MalformedURLException e) {}
 
 	    try {
-		    ferdieDead = getAudioClip(new URL(CATAMARAN_URL + "ferdieDead.mp3"));
+		    cannonFired = getAudioClip(new URL(CATAMARAN_URL + "cannonFired.wav"));
 	    } catch (MalformedURLException e) {}
 
 	    try {
-		    cannonFired = getAudioClip(new URL(CATAMARAN_URL + "cannonFired.mp3"));
-	    } catch (MalformedURLException e) {}
-
-	    try {
-		    squirrelHitsDog = getAudioClip(new URL(CATAMARAN_URL + "squirrelHitsDog.mp3"));
+		    squirrelHitsDog = getAudioClip(new URL(CATAMARAN_URL + "squirrelHitsDog.wav"));
 	    } catch (MalformedURLException e) {}
 
 	    try {
@@ -136,7 +133,7 @@ public class Catamaran extends Applet implements Runnable
 	    } catch (MalformedURLException e) {}
 
 	    try {
-		    tortuga = getAudioClip(new URL(CATAMARAN_URL + "tortuga.mp3"));
+		    tortuga = getAudioClip(new URL(CATAMARAN_URL + "tortuga.wav"));
 	    } catch (MalformedURLException e) {}
 
         // Chill while images aren't loaded from the interwebz
