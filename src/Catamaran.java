@@ -138,10 +138,10 @@ public class Catamaran extends Applet implements Runnable
             dogTreasure = getAudioClip(new URL(CATAMARAN_URL + "dogTreasure.wav")); 
         } catch (MalformedURLException e) {}
 
-/*	    try {
+	    try {
 		    tortuga = getAudioClip(new URL(CATAMARAN_URL + "tortuga.wav"));
 	    } catch (MalformedURLException e) {}
-*/
+
         // Chill while images aren't loaded from the interwebz
         while (capt.getHeight(this) == -1 || dog.getHeight(this) == -1 ||
                 chest.getHeight(this) == -1 || bulletImg.getHeight(this) == -1 ||
@@ -149,7 +149,7 @@ public class Catamaran extends Applet implements Runnable
                 dogBulletImg.getHeight(this) == -1);
         
         // Start looping the background song
-//        tortuga.loop();
+        tortuga.loop();
 	}
 
     public void startNewLevel()
