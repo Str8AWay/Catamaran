@@ -16,7 +16,7 @@ public abstract class Bullet extends Sprite {
     public void paint(Graphics g)
     {
         g.drawImage(bulletImg, locx-app.vleft, locy, null);
-        g.drawRect(locx-app.vleft+10, locy+10, width-20, height-20);
+        //g.drawRect(locx-app.vleft+10, locy+10, width-20, height-20);
     }
 
     public Rectangle collisionBox()

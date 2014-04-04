@@ -9,8 +9,7 @@ import java.awt.event.*;
 import java.applet.*;
 import java.net.*;
 import java.util.*;
-import java.awt.Image.*; 
-import javafx.scene.media.*;
+import java.awt.Image.*;
 
 public class Catamaran extends Applet implements Runnable
 {
@@ -53,13 +52,13 @@ public class Catamaran extends Applet implements Runnable
 	int points; 
 	boolean spaceReleased; 
 	int crewmembers; 
-	MediaPlayer ferdieDead;
-	MediaPlayer cannonFired;
+	AudioClip ferdieDead;
+	AudioClip cannonFired;
 	AudioClip squirrelHitsDog;
 	AudioClip fireSquirrel;
 	AudioClip collectAcorn;
 	AudioClip collectTreasure;
-    MediaPlayer tortuga;
+    AudioClip tortuga;
 
 	public void init()
 	{
