@@ -11,6 +11,6 @@ public class AcornBooty extends Booty {
     public void paint(Graphics g)
     {
         g.drawImage(treasure, locx-app.vleft, locy, width, height, null);
-        g.drawRect(locx-app.vleft, locy, width, height);
+        //g.drawRect(locx-app.vleft, locy, width, height);
     }
 }
